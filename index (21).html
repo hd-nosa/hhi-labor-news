@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>노사협력 소식 | HD현대중공업</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════ */
+:root {
+  --c-bg:       #f5f6f8;
+  --c-surface:  #ffffff;
+  --c-border:   #e4e7ed;
+  --c-text:     #111827;
+  --c-sub:      #6b7280;
+  --c-muted:    #9ca3af;
+  --c-blue:     #1347a0;
+  --c-blue-lt:  #eef3fb;
+  --c-blue-mid: #dce8f8;
+  --c-green:    #0d6e3f;
+  --c-green-lt: #e6f4ed;
+  --c-orange:   #c84b00;
+  --c-orange-lt:#fdf0e8;
+  --c-accent:   #e85d00;
+  --header-h:   56px;
+  --dock-h:     60px;
+  --r:          10px;
+}
+
+/* ═══════════════════════════════════════
+   RESET / BASE
+═══════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'Noto Sans KR',sans-serif;
+  background:var(--c-bg);
+  color:var(--c-text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+a{text-decoration:none;color:inherit;}
+img,video{display:block;max-width:100%;}
+
+/* ═══════════════════════════════════════
+   PAGE SYSTEM
+═══════════════════════════════════════ */
+.page{display:none;min-height:100vh;padding-top:var(--header-h);}
+.page.active{display:block;}
+#page-detail{padding-top:var(--header-h);padding-bottom:0;}
+
+/* ═══════════════════════════════════════
+   HEADER
+═══════════════════════════════════════ */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--header-h);
+  background:var(--c-surface);
+  border-bottom:1px solid var(--c-border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+}
+.header-logo{
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+}
+.header-logo-mark{
+  width:44px;height:28px;
+  background:var(--c-blue);
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.header-logo-mark img{width:100%;height:100%;object-fit:contain;}
+.header-logo-fallback{
+  font-size:13px;font-weight:900;color:#fff;letter-spacing:1.5px;
+}
+.header-logo-text{line-height:1.25;}
+.header-logo-title{font-size:13px;font-weight:700;}
+.header-logo-sub{font-size:10px;color:var(--c-sub);}
+.header-nav{display:flex;align-items:center;gap:6px;}
+.header-nav-btn{
+  font-size:12px;font-weight:500;color:var(--c-sub);
+  padding:6px 12px;border-radius:20px;
+  transition:all .15s;
+}
+.header-nav-btn:hover,.header-nav-btn.active{
+  background:var(--c-blue-lt);color:var(--c-blue);font-weight:700;
+}
+.header-event-btn{
+  font-size:11px;font-weight:700;
+  background:var(--c-accent);color:#fff;
+  padding:6px 14px;border-radius:20px;
+  transition:opacity .15s;
+}
+.header-event-btn:hover{opacity:.85;}
+
+/* ═══════════════════════════════════════
+   ① HOME
+═══════════════════════════════════════ */
+.home-inner{
+  max-width:1080px;margin:0 auto;
+  padding:28px 20px 80px;
+  display:grid;
+  grid-template-columns:1fr 300px;
+  gap:28px;
+}
+@media(max-width:780px){
+  .home-inner{grid-template-columns:1fr;padding:20px 16px 80px;}
+  .home-side{display:none;}
+}
+
+/* ─── Featured ─── */
+.featured-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:box-shadow .2s,transform .2s;
+}
+.featured-card:hover{
+  box-shadow:0 8px 28px rgba(0,0,0,.1);
+  transform:translateY(-2px);
+}
+.featured-thumb{
+  width:100%;aspect-ratio:16/9;
+  background:var(--c-blue-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:56px;position:relative;overflow:hidden;
+}
+.featured-thumb img{width:100%;height:100%;object-fit:cover;}
+.featured-thumb-ph{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:var(--c-sub);
+}
+.featured-thumb-ph span{font-size:11px;}
+.featured-pin{
+  position:absolute;top:12px;left:12px;
+  background:var(--c-blue);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:1px;
+  padding:3px 9px;border-radius:4px;
+}
+.featured-body{padding:20px;}
+.featured-cat{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  color:var(--c-blue);margin-bottom:10px;
+}
+.featured-cat::before{
+  content:'';width:5px;height:5px;border-radius:50%;
+  background:var(--c-blue);
+}
+.featured-title{
+  font-size:clamp(17px,2.5vw,22px);font-weight:900;
+  line-height:1.4;margin-bottom:10px;
+}
+.featured-meta{font-size:12px;color:var(--c-muted);margin-bottom:18px;}
+.featured-meta span{margin-right:14px;}
+.btn-view{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--c-blue);color:#fff;
+  font-size:13px;font-weight:700;
+  padding:11px 22px;border-radius:8px;
+  transition:background .15s;
+}
+.btn-view:hover{background:#0f3b85;}
+.btn-view svg{width:14px;height:14px;}
+
+/* ─── Recent list ─── */
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:2px;
+  color:var(--c-muted);text-transform:uppercase;
+  margin:24px 0 12px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--c-border);}
+
+.list-rows{display:flex;flex-direction:column;gap:8px;}
+.list-row{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r);
+  display:flex;align-items:center;gap:14px;
+  padding:13px 15px;
+  cursor:pointer;transition:all .15s;
+}
+.list-row:hover{border-color:var(--c-blue);transform:translateX(2px);}
+.list-row-icon{
+  width:38px;height:38px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;background:var(--c-bg);
+}
+.list-row-info{flex:1;min-width:0;}
+.list-row-cat{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--c-blue);margin-bottom:3px;}
+.list-row-title{
+  font-size:13px;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.list-row-date{font-size:11px;color:var(--c-muted);margin-top:2px;}
+.list-row-chevron{color:var(--c-muted);font-size:16px;flex-shrink:0;}
+
+/* ─── Side panel ─── */
+.home-side{display:flex;flex-direction:column;gap:20px;}
+
+.side-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:14px;
+  overflow:hidden;
+}
+.side-card-head{
+  padding:14px 16px;
+  border-bottom:1px solid var(--c-border);
+  font-size:12px;font-weight:700;letter-spacing:1px;color:var(--c-sub);
+}
+.cat-btns{padding:12px;}
+.cat-btn-item{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 10px;border-radius:8px;
+  cursor:pointer;transition:background .15s;
+  width:100%;text-align:left;
+}
+.cat-btn-item:hover{background:var(--c-bg);}
+.cat-btn-icon{font-size:18px;width:28px;text-align:center;}
+.cat-btn-info{flex:1;}
+.cat-btn-name{font-size:13px;font-weight:700;}
+.cat-btn-count{font-size:11px;color:var(--c-muted);}
+.cat-btn-arrow{color:var(--c-muted);font-size:14px;}
+
+.event-banner{
+  background:linear-gradient(135deg,#1a0800,#3d1200);
+  border:1px solid rgba(232,93,0,.3);
+  border-radius:14px;padding:18px;
+  cursor:pointer;transition:border-color .15s;
+  position:relative;overflow:hidden;
+}
+.event-banner::before{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:80px;height:80px;
+  background:radial-gradient(circle,rgba(232,93,0,.4),transparent 70%);
+}
+.event-banner:hover{border-color:var(--c-accent);}
+.event-tag{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--c-accent);display:block;margin-bottom:8px;}
+.event-title{font-size:15px;font-weight:900;color:#fff;margin-bottom:6px;}
+.event-desc{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:14px;line-height:1.6;}
+.event-cta{
+  display:inline-block;
+  background:var(--c-accent);color:#fff;
+  font-size:12px;font-weight:700;
+  padding:8px 16px;border-radius:6px;
+}
+
+/* ═══════════════════════════════════════
+   ② ARCHIVE (Category List)
+═══════════════════════════════════════ */
+#page-archive{background:var(--c-bg);}
+
+.archive-header{
+  background:var(--c-surface);
+  border-bottom:1px solid var(--c-border);
+  padding:20px 20px 0;
+  position:sticky;top:var(--header-h);z-index:100;
+}
+.archive-header-top{
+  max-width:900px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.back-btn{
+  display:flex;align-items:center;gap:5px;
+  font-size:12px;font-weight:500;color:var(--c-sub);
+  border:1px solid var(--c-border);border-radius:6px;
+  padding:6px 12px;transition:all .15s;flex-shrink:0;
+}
+.back-btn:hover{border-color:var(--c-blue);color:var(--c-blue);}
+.archive-page-title{font-size:18px;font-weight:900;}
+
+.cat-tabs{
+  max-width:900px;margin:0 auto;
+  display:flex;gap:4px;overflow-x:auto;padding-bottom:0;
+  scrollbar-width:none;
+}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.cat-tab{
+  padding:9px 18px;border-radius:8px 8px 0 0;
+  font-size:13px;font-weight:500;color:var(--c-sub);
+  white-space:nowrap;transition:all .15s;
+  border:1px solid transparent;border-bottom:none;
+  flex-shrink:0;
+}
+.cat-tab:hover{color:var(--c-text);}
+.cat-tab.active{
+  background:var(--c-bg);
+  border-color:var(--c-border);
+  color:var(--c-blue);font-weight:700;
+}
+
+.archive-toolbar{
+  max-width:900px;margin:0 auto;
+  padding:14px 0;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+}
+.toolbar-count{font-size:13px;color:var(--c-sub);}
+.toolbar-count strong{color:var(--c-text);}
+.sort-select{
+  font-family:inherit;font-size:12px;
+  border:1px solid var(--c-border);border-radius:6px;
+  padding:6px 10px;background:var(--c-surface);
+  color:var(--c-text);cursor:pointer;
+}
+
+.archive-grid{
+  max-width:900px;margin:0 auto;
+  padding:0 20px 80px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+@media(max-width:680px){
+  .archive-grid{grid-template-columns:repeat(2,1fr);padding:0 16px 80px;}
+}
+@media(max-width:400px){
+  .archive-grid{grid-template-columns:1fr;}
+}
+
+.archive-card{
+  background:var(--c-surface);
+  border:1px solid var(--c-border);
+  border-radius:var(--r);
+  overflow:hidden;cursor:pointer;
+  transition:all .15s;
+}
+.archive-card:hover{
+  border-color:var(--c-blue);
+  box-shadow:0 4px 18px rgba(19,71,160,.1);
+  transform:translateY(-2px);
+}
+.archive-thumb{
+  width:100%;aspect-ratio:3/4;
+  background:var(--c-blue-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;overflow:hidden;
+}
+.archive-thumb img{width:100%;height:100%;object-fit:cover;}
+.archive-body{padding:12px;}
+.archive-cat{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--c-blue);margin-bottom:4px;}
+.archive-title{font-size:12px;font-weight:700;line-height:1.4;margin-bottom:5px;}
+.archive-date{font-size:11px;color:var(--c-muted);}
+
+/* ═══════════════════════════════════════
+   ③ DETAIL VIEWER
+═══════════════════════════════════════ */
+#page-detail{
+  background:#000;
+  height:100vh;
+  overflow:hidden;
+  display:none;
+  flex-direction:column;
+}
+#page-detail.active{display:flex;}
+
+/* 슬라이드 컨테이너 */
+.viewer-wrap{
+  flex:1;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+  position:relative;
+}
+.viewer-wrap::-webkit-scrollbar{display:none;}
+
+.viewer-slide{
+  height:calc(100vh - var(--header-h) - var(--dock-h));
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+
+/* 미디어 카드 — 세로형 꽉 채우기 */
+.media-card{
+  height:100%;
+  aspect-ratio:9/16;
+  max-width:96vw;
+  position:relative;
+  overflow:hidden;
+  border-radius:0;
+  background:#111;
+  display:flex;align-items:center;justify-content:center;
+}
+@media(min-width:600px){
+  .media-card{
+    height:calc(100vh - var(--header-h) - var(--dock-h) - 16px);
+    border-radius:10px;
+    box-shadow:0 16px 48px rgba(0,0,0,.6);
+  }
+}
+.media-card img,.media-card video{
+  width:100%;height:100%;object-fit:contain;
+}
+
+/* 페이지 카운터 */
+.page-counter{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);
+  color:rgba(255,255,255,.92);
+  font-size:13px;font-weight:700;letter-spacing:.5px;
+  padding:5px 16px;border-radius:20px;
+  white-space:nowrap;z-index:10;
+  pointer-events:none;
+}
+
+/* 우측 도트 */
+.viewer-dots{
+  position:fixed;right:14px;
+  top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:6px;
+  z-index:150;
+}
+.vdot{
+  width:4px;border-radius:2px;height:4px;
+  background:rgba(255,255,255,.2);
+  transition:all .3s;cursor:pointer;
+}
+.vdot.active{background:rgba(255,255,255,.9);height:16px;}
+
+/* 스크롤 힌트 */
+.scroll-hint{
+  position:fixed;bottom:calc(var(--dock-h) + 14px);left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:rgba(255,255,255,.3);font-size:10px;letter-spacing:1px;
+  animation:sh-bounce 2s infinite;
+  transition:opacity .4s;z-index:150;pointer-events:none;
+}
+@keyframes sh-bounce{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-6px)}
+}
+
+/* 플레이스홀더 */
+.media-ph{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;
+  width:100%;height:100%;
+  text-align:center;padding:28px;
+}
+.ph-type{
+  font-size:10px;font-weight:700;letter-spacing:2px;
+  background:rgba(255,255,255,.08);
+  padding:4px 12px;border-radius:20px;
+  color:rgba(255,255,255,.35);
+}
+.ph-icon{font-size:52px;}
+.ph-title{font-size:15px;font-weight:700;color:rgba(255,255,255,.6);line-height:1.4;}
+.ph-desc{font-size:11px;color:rgba(255,255,255,.25);line-height:1.7;}
+
+/* ─── BOTTOM DOCK ─── */
+.bottom-dock{
+  height:var(--dock-h);
+  background:rgba(8,8,8,.97);
+  border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;
+  gap:0;flex-shrink:0;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.dock-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:rgba(255,255,255,.35);
+  font-size:9px;letter-spacing:.3px;
+  padding:6px 0;min-width:72px;
+  transition:color .15s;
+}
+.dock-item:hover{color:rgba(255,255,255,.9);}
+.dock-item.ev{color:rgba(232,93,0,.6);}
+.dock-item.ev:hover{color:#e85d00;}
+.dock-item svg{width:17px;height:17px;margin-bottom:1px;}
+.dock-sep{width:1px;height:22px;background:rgba(255,255,255,.08);}
+
+/* 이전/다음 글 버튼 */
+.dock-prev-next{
+  display:flex;align-items:center;gap:1px;
+}
+.dock-pn-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:rgba(255,255,255,.35);font-size:9px;
+  padding:6px 12px;transition:color .15s;
+}
+.dock-pn-btn:hover{color:rgba(255,255,255,.9);}
+.dock-pn-btn:disabled{opacity:.2;pointer-events:none;}
+.dock-pn-btn svg{width:17px;height:17px;}
+
+/* ═══════════════════════════════════════
+   EVENT PAGE
+═══════════════════════════════════════ */
+#page-event{background:var(--c-bg);}
+.event-inner{max-width:600px;margin:0 auto;padding:36px 20px 100px;}
+.event-badge{
+  display:inline-block;background:var(--c-accent);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:1.5px;
+  padding:4px 12px;border-radius:4px;margin-bottom:14px;
+}
+.event-page-title{font-size:24px;font-weight:900;line-height:1.3;margin-bottom:10px;}
+.event-page-desc{font-size:14px;color:var(--c-sub);line-height:1.8;margin-bottom:28px;}
+.quiz-card{
+  background:var(--c-surface);border:1px solid var(--c-border);
+  border-radius:12px;padding:24px;margin-bottom:16px;
+}
+.quiz-step{font-size:10px;font-weight:700;color:var(--c-blue);letter-spacing:1.5px;margin-bottom:10px;}
+.quiz-q{font-size:16px;font-weight:700;margin-bottom:18px;line-height:1.5;}
+.quiz-opts{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{
+  background:var(--c-bg);border:1px solid var(--c-border);
+  border-radius:8px;padding:12px 15px;cursor:pointer;
+  transition:all .15s;display:flex;align-items:center;gap:12px;font-size:13px;
+}
+.quiz-opt:hover{border-color:var(--c-blue);background:var(--c-blue-lt);}
+.quiz-opt.selected{border-color:var(--c-blue);background:var(--c-blue-lt);color:var(--c-blue);font-weight:700;}
+.quiz-letter{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--c-border);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;color:var(--c-sub);
+}
+.quiz-opt.selected .quiz-letter{background:var(--c-blue);color:#fff;}
+.coming-box{
+  background:var(--c-surface);border:1px solid var(--c-border);
+  border-radius:12px;padding:32px;text-align:center;
+}
+.coming-icon{font-size:44px;margin-bottom:12px;}
+.coming-title{font-size:16px;font-weight:900;margin-bottom:8px;}
+.coming-desc{font-size:13px;color:var(--c-sub);line-height:1.7;}
+.coming-chip{
+  display:inline-block;margin-top:12px;
+  background:var(--c-orange-lt);border:1px solid rgba(200,75,0,.2);
+  color:var(--c-orange);font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:20px;
+}
+
+/* ═══════════════════════════════════════
+   CATEGORY COLOR TOKENS
+═══════════════════════════════════════ */
+.cat-교섭소식{color:var(--c-blue)!important;}
+.cat-시황정보{color:var(--c-green)!important;}
+.cat-복지안내{color:var(--c-orange)!important;}
+.cat-노사안내{color:#7c3aed!important;}
+
+.bg-교섭소식{background:var(--c-blue-lt)!important;}
+.bg-시황정보{background:var(--c-green-lt)!important;}
+.bg-복지안내{background:var(--c-orange-lt)!important;}
+.bg-노사안내{background:#f3eeff!important;}
+
+/* ═══════════════════════════════════════
+   FADE ANIMATION
+═══════════════════════════════════════ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.fade-up{animation:fadeUp .35s ease both;}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="header">
+  <div class="header-logo" onclick="nav('home')">
+    <div class="header-logo-mark">
+      <!--
+        ★ 로고 교체:
+          1. logo.png를 같은 폴더에 업로드
+          2. 아래 주석 해제 후 fallback span 삭제
+        <img src="logo.png" alt="HD현대중공업"/>
+      -->
+      <span class="header-logo-fallback">HHI</span>
+    </div>
+    <div class="header-logo-text">
+      <div class="header-logo-title">HD현대중공업</div>
+      <div class="header-logo-sub">노사협력 소식</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <button class="header-nav-btn active" id="nav-home" onclick="nav('home')">홈</button>
+    <button class="header-nav-btn" id="nav-archive" onclick="nav('archive')">목록</button>
+    <button class="header-event-btn" onclick="nav('event')">🎁 이벤트</button>
+  </nav>
+</header>
+
+<!-- ══════════ ① HOME ══════════ -->
+<main id="page-home" class="page active">
+  <div class="home-inner">
+
+    <!-- LEFT -->
+    <div>
+      <!-- Featured -->
+      <div id="featured-wrap"></div>
+
+      <!-- Recent -->
+      <div class="section-label">최근 게시물</div>
+      <div class="list-rows" id="recent-wrap"></div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <aside class="home-side">
+      <div class="side-card">
+        <div class="side-card-head">카테고리</div>
+        <div class="cat-btns" id="cat-btns"></div>
+      </div>
+      <div class="event-banner" onclick="nav('event')">
+        <span class="event-tag">🎁 이벤트 진행 중</span>
+        <div class="event-title">교섭소식 퀴즈 도전!</div>
+        <div class="event-desc">카드뉴스를 꼼꼼히 읽고 퀴즈를 맞혀보세요.</div>
+        <span class="event-cta">지금 참여하기 →</span>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- ══════════ ② ARCHIVE ══════════ -->
+<div id="page-archive" class="page">
+  <div class="archive-header">
+    <div class="archive-header-top">
+      <button class="back-btn" onclick="nav('home')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        홈
+      </button>
+      <h1 class="archive-page-title" id="archive-title">전체 목록</h1>
+    </div>
+    <div class="cat-tabs" id="cat-tabs"></div>
+    <div class="archive-toolbar">
+      <span class="toolbar-count" id="toolbar-count"></span>
+      <select class="sort-select" id="sort-select" onchange="applySort()">
+        <option value="newest">최신순</option>
+        <option value="oldest">오래된순</option>
+      </select>
+    </div>
+  </div>
+  <div class="archive-grid" id="archive-grid"></div>
+</div>
+
+<!-- ══════════ ③ DETAIL VIEWER ══════════ -->
+<div id="page-detail" class="page">
+  <div class="viewer-dots" id="viewer-dots"></div>
+  <div class="scroll-hint" id="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+    스크롤
+  </div>
+
+  <div class="viewer-wrap" id="viewer-wrap"></div>
+
+  <div class="bottom-dock">
+    <button class="dock-item" onclick="nav('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>홈
+    </button>
+    <div class="dock-sep"></div>
+    <button class="dock-item" onclick="nav('archive')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>목록
+    </button>
+    <div class="dock-sep"></div>
+    <div class="dock-prev-next">
+      <button class="dock-pn-btn" id="btn-prev" onclick="goAdjacentPost(-1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>이전글
+      </button>
+      <button class="dock-pn-btn" id="btn-next" onclick="goAdjacentPost(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>다음글
+      </button>
+    </div>
+    <div class="dock-sep"></div>
+    <button class="dock-item ev" onclick="nav('event')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>이벤트
+    </button>
+  </div>
+</div>
+
+<!-- ══════════ EVENT ══════════ -->
+<div id="page-event" class="page">
+  <div class="event-inner">
+    <button class="back-btn" onclick="nav('home')" style="margin-bottom:20px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
+      홈
+    </button>
+    <div class="event-badge">🎁 EVENT</div>
+    <h2 class="event-page-title">교섭소식 퀴즈<br>참여하고 경품 받자!</h2>
+    <p class="event-page-desc">카드뉴스를 꼼꼼히 읽고 퀴즈를 풀어보세요.<br>정답자 중 추첨으로 소정의 상품을 드립니다.</p>
+    <div class="quiz-card">
+      <div class="quiz-step">QUIZ 01 / 03</div>
+      <div class="quiz-q">2025년 제7차 본교섭에서 회사측이 제시한 임금인상 방식은?</div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="selectOpt(this)"><div class="quiz-letter">A</div>정률 인상 (기본급 대비 %)</div>
+        <div class="quiz-opt" onclick="selectOpt(this)"><div class="quiz-letter">B</div>정액 인상 (일정 금액 일괄)</div>
+        <div class="quiz-opt" onclick="selectOpt(this)"><div class="quiz-letter">C</div>직급별 차등 인상</div>
+        <div class="quiz-opt" onclick="selectOpt(this)"><div class="quiz-letter">D</div>성과연동 인상</div>
+      </div>
+    </div>
+    <div class="coming-box">
+      <div class="coming-icon">🏆</div>
+      <div class="coming-title">이벤트 세부 내용 준비 중</div>
+      <div class="coming-desc">더 풍성한 퀴즈와 경품이 곧 공개됩니다.</div>
+      <span class="coming-chip">Coming Soon — 2025년 8월 예정</span>
+
+<!-- ══════════ ADMIN PAGE ══════════ -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div id="admin-lock">
+      <div class="lock-box">
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">관리자 페이지</div>
+        <div class="lock-desc">4자리 비밀번호를 입력하세요</div>
+        <div class="pin-dots" id="pin-dots">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="pin-error" id="pin-error"></div>
+        <div class="pin-pad">
+          <button onclick="pinInput('1')">1</button><button onclick="pinInput('2')">2</button><button onclick="pinInput('3')">3</button>
+          <button onclick="pinInput('4')">4</button><button onclick="pinInput('5')">5</button><button onclick="pinInput('6')">6</button>
+          <button onclick="pinInput('7')">7</button><button onclick="pinInput('8')">8</button><button onclick="pinInput('9')">9</button>
+          <button onclick="pinClear()" class="pin-util">⌫</button>
+          <button onclick="pinInput('0')">0</button>
+          <button onclick="nav('home')" class="pin-util">✕</button>
+        </div>
+      </div>
+    </div>
+    <div id="admin-content" style="display:none">
+      <div class="adm-inner">
+        <div class="adm-header">
+          <button class="back-btn" onclick="nav('home')">← 홈으로</button>
+          <h2 class="adm-title">게시물 관리</h2>
+          <button class="adm-logout" onclick="adminLogout()">로그아웃</button>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-title">➕ 새 게시물 추가</div>
+          <div class="adm-field">
+            <label>제목 *</label>
+            <input type="text" id="adm-title" placeholder="예) 제8차 본교섭 결과 요약"/>
+          </div>
+          <div class="adm-row2">
+            <div class="adm-field">
+              <label>카테고리 *</label>
+              <select id="adm-cat">
+                <option value="교섭소식">⚓ 교섭 소식</option>
+                <option value="시황정보">📊 시황 정보</option>
+                <option value="복지안내">🏖️ 복지 안내</option>
+                <option value="노사안내">🤝 노사 안내</option>
+              </select>
+            </div>
+            <div class="adm-field">
+              <label>날짜 *</label>
+              <input type="date" id="adm-date"/>
+            </div>
+          </div>
+          <div class="adm-field">
+            <label>이미지·영상 첨부 (JPG·PNG·GIF·MP4, 여러 장 가능)</label>
+            <div class="adm-upload-zone" onclick="document.getElementById('adm-files').click()"
+              ondragover="event.preventDefault()" ondrop="event.preventDefault();handleFiles(event.dataTransfer.files)">
+              <div class="upload-icon">📎</div>
+              <div class="upload-text">클릭하거나 파일을 드래그하세요</div>
+              <div class="upload-sub">각 파일이 카드뉴스 1페이지가 됩니다 (순서대로)</div>
+              <input type="file" id="adm-files" multiple accept="image/*,video/mp4" style="display:none" onchange="handleFiles(this.files)"/>
+            </div>
+            <div class="adm-preview-list" id="adm-preview-list"></div>
+          </div>
+          <button class="adm-btn-generate" onclick="generateCode()">📋 index.html에 넣을 코드 생성하기</button>
+        </div>
+        <div class="adm-card" id="adm-result-card" style="display:none">
+          <div class="adm-card-title">✅ 생성된 코드 — index.html에 붙여넣기</div>
+          <div class="adm-guide">
+            <div class="guide-step"><span class="gs-num">1</span><span>아래 파일 목록의 이미지를 GitHub <code>slides/</code> 폴더에 업로드</span></div>
+            <div class="guide-step"><span class="gs-num">2</span><span>아래 코드 복사 → <code>index.html</code>의 <code>articles = [</code> 바로 뒤에 붙여넣기</span></div>
+            <div class="guide-step"><span class="gs-num">3</span><span>고정 게시물로 설정하려면 <code>PINNED_ID</code> 값도 변경</span></div>
+          </div>
+          <div class="adm-code-wrap">
+            <button class="adm-copy-btn" onclick="copyCode()">📋 복사</button>
+            <pre id="adm-code-output"></pre>
+          </div>
+          <div id="adm-filelist-output" class="adm-filelist"></div>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-title">📋 현재 게시물 목록 (총 <span id="adm-total"></span>건)</div>
+          <div id="adm-article-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+#page-admin{background:var(--c-bg);}
+.admin-wrap{min-height:calc(100vh - var(--header-h));}
+#admin-lock{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--header-h));}
+.lock-box{background:var(--c-surface);border:1px solid var(--c-border);border-radius:16px;padding:36px 28px;width:min(340px,92vw);text-align:center;}
+.lock-icon{font-size:40px;margin-bottom:12px;}
+.lock-title{font-size:18px;font-weight:900;margin-bottom:6px;}
+.lock-desc{font-size:13px;color:var(--c-sub);margin-bottom:24px;}
+.pin-dots{display:flex;justify-content:center;gap:14px;margin-bottom:12px;}
+.pin-dots span{width:14px;height:14px;border-radius:50%;background:var(--c-border);transition:background .15s;}
+.pin-dots span.filled{background:var(--c-blue);}
+.pin-error{font-size:12px;color:#dc2626;height:18px;margin-bottom:8px;}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px;}
+.pin-pad button{height:52px;border-radius:10px;font-size:20px;font-weight:700;background:var(--c-bg);border:1px solid var(--c-border);cursor:pointer;transition:all .1s;}
+.pin-pad button:hover{background:var(--c-blue-lt);border-color:var(--c-blue);}
+.pin-pad button:active{transform:scale(.94);}
+.pin-pad button.pin-util{font-size:16px;color:var(--c-sub);}
+.adm-inner{max-width:720px;margin:0 auto;padding:24px 20px 80px;}
+.adm-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.adm-title{font-size:18px;font-weight:900;flex:1;}
+.adm-logout{font-size:12px;color:var(--c-sub);border:1px solid var(--c-border);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;}
+.adm-logout:hover{color:#dc2626;border-color:#dc2626;}
+.adm-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:12px;padding:22px;margin-bottom:18px;}
+.adm-card-title{font-size:14px;font-weight:700;margin-bottom:18px;}
+.adm-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.adm-field label{font-size:12px;font-weight:700;color:var(--c-sub);}
+.adm-field input,.adm-field select{font-family:inherit;font-size:14px;border:1px solid var(--c-border);border-radius:8px;padding:10px 12px;background:var(--c-bg);transition:border-color .15s;}
+.adm-field input:focus,.adm-field select:focus{outline:none;border-color:var(--c-blue);}
+.adm-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.adm-upload-zone{border:2px dashed var(--c-border);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:all .15s;background:var(--c-bg);}
+.adm-upload-zone:hover{border-color:var(--c-blue);background:var(--c-blue-lt);}
+.upload-icon{font-size:32px;margin-bottom:8px;}
+.upload-text{font-size:14px;font-weight:700;margin-bottom:4px;}
+.upload-sub{font-size:12px;color:var(--c-muted);}
+.adm-preview-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.preview-item{position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--c-border);}
+.preview-item img{width:100%;height:100%;object-fit:cover;}
+.preview-item .preview-num{position:absolute;top:3px;left:5px;background:rgba(0,0,0,.6);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;}
+.preview-item .preview-name{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);color:#fff;font-size:9px;padding:3px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.preview-remove{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.adm-btn-generate{width:100%;padding:14px;background:var(--c-blue);color:#fff;font-size:14px;font-weight:700;border-radius:10px;border:none;cursor:pointer;transition:background .15s;margin-top:4px;}
+.adm-btn-generate:hover{background:#0f3b85;}
+.adm-guide{margin-bottom:16px;display:flex;flex-direction:column;gap:8px;}
+.guide-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--c-sub);line-height:1.5;}
+.gs-num{width:22px;height:22px;border-radius:50%;background:var(--c-blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.guide-step code{background:var(--c-bg);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--c-blue);}
+.adm-code-wrap{position:relative;}
+.adm-copy-btn{position:absolute;top:10px;right:10px;background:var(--c-blue);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;border:none;cursor:pointer;z-index:1;}
+.adm-code-wrap pre{background:#1e2433;color:#a8d8a8;border-radius:10px;padding:16px;font-size:12px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-break:break-all;margin:0;}
+.adm-filelist{margin-top:14px;padding:14px;background:var(--c-blue-lt);border-radius:8px;font-size:13px;color:var(--c-blue);line-height:1.8;}
+.adm-list-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--c-border);}
+.adm-list-item:last-child{border-bottom:none;}
+.adm-list-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;background:var(--c-bg);flex-shrink:0;}
+.adm-list-info{flex:1;min-width:0;}
+.adm-list-cat{font-size:10px;font-weight:700;color:var(--c-blue);margin-bottom:2px;}
+.adm-list-title{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.adm-list-date{font-size:11px;color:var(--c-muted);}
+.adm-list-id{font-size:10px;color:var(--c-muted);background:var(--c-bg);padding:2px 7px;border-radius:4px;flex-shrink:0;}
+</style>
+
+
+<script>
+/* ═══════════════════════════════════════════
+   ★★★ 담당자 설정 구역 ★★★
+   ═══════════════════════════════════════════
+
+   PINNED_ID : 메인에 고정 노출할 게시물 id
+               null 이면 자동으로 최신 게시물 표시
+
+   articles  : 게시물 목록
+     - id       : 고유 번호 (숫자)
+     - category : '교섭소식' | '시황정보' | '복지안내' | '노사안내'
+     - date     : 'YYYY.MM.DD'
+     - title    : 제목
+     - icon     : 이모지 (썸네일 없을 때 표시)
+     - thumb    : 썸네일 이미지 경로 (없으면 null)
+     - slides   : 페이지 배열
+         type:'image'  → src:'경로.jpg'
+         type:'gif'    → src:'경로.gif'
+         type:'video'  → src:'경로.mp4'
+         type:'placeholder' → 예시용 (실제 파일 없을 때)
+
+   ═══════════════════════════════════════════ */
+
+const PINNED_ID = 0; // null 이면 최신글 자동 선택
+
+const articles = [
+  {
+    id:0, category:'교섭소식', date:'2025.07.14', title:'제7차 본교섭 결과 — 임금 조정안 제시, 합의 접근 중',
+    icon:'⚓', thumb:null,
+    slides:[
+      { type:'image',  src:'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&h=1067&fit=crop&q=80' },
+      { type:'inline', bg:'#0a1628',
+        html:`<div style="width:100%;height:100%;background:linear-gradient(160deg,#0a1628,#0057b8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:36px;">
+          <style>@keyframes bar-rise{from{height:6px}to{height:var(--h)}}</style>
+          <div style="font-size:13px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.07);padding:4px 14px;border-radius:20px;">교섭 진행 현황</div>
+          <div style="font-size:22px;font-weight:900;color:#fff;text-align:center;line-height:1.4;">주 2회 교섭<br>7차까지 진행 완료</div>
+          <div style="display:flex;align-items:flex-end;gap:10px;height:90px;">
+            ${[40,55,50,70,60,80,75].map((h,i)=>`<div style="width:26px;background:rgba(0,168,232,${.4+i*.08});border-radius:4px 4px 0 0;height:6px;animation:bar-rise 1s ${i*.12}s ease both;--h:${h}px;"></div>`).join('')}
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);">1차 ~ 7차 교섭</div>
+        </div>`
+      },
+      { type:'placeholder', bg:'#071020', icon:'⚓', label:'JPG', title:'주요 논의 내용', desc:'임금인상률, 복지 개선 등\n핵심 내용 요약 페이지' },
+      { type:'placeholder', bg:'#050e1a', icon:'⚓', label:'JPG', title:'다음 교섭 일정', desc:'제8차 교섭 일정 및\n조합원 안내 메시지' },
+    ]
+  },
+  {
+    id:1, category:'시황정보', date:'2025.07.10', title:'2025년 2분기 조선업 수주 동향 분석',
+    icon:'📊', thumb:null,
+    slides:[
+      { type:'placeholder', bg:'#0d2a10', icon:'📊', label:'JPG', title:'2분기 시황 표지', desc:'조선업 수주 동향\n표지 페이지' },
+      { type:'placeholder', bg:'#071c08', icon:'📊', label:'GIF', title:'수주 실적 차트', desc:'인포그래픽 페이지\n(GIF 가능)' },
+      { type:'placeholder', bg:'#051606', icon:'📊', label:'MP4', title:'하반기 전망', desc:'동영상 삽입 가능' },
+    ]
+  },
+  {
+    id:2, category:'복지안내', date:'2025.07.05', title:'2025 하반기 복지제도 개선 내용 안내',
+    icon:'🏖️', thumb:null,
+    slides:[
+      { type:'placeholder', bg:'#2a1500', icon:'🏖️', label:'JPG', title:'복지 개선 표지', desc:'2025 하반기 복지\n개선 안내 표지' },
+      { type:'placeholder', bg:'#1e1000', icon:'🏖️', label:'JPG', title:'학자금·의료비', desc:'학자금 지원 상향\n의료비 한도 확대' },
+    ]
+  },
+  {
+    id:3, category:'교섭소식', date:'2025.07.01', title:'제6차 본교섭 결과 요약',
+    icon:'⚓', thumb:null,
+    slides:[
+      { type:'placeholder', bg:'#0d1f3a', icon:'⚓', label:'JPG', title:'제6차 본교섭', desc:'근무환경 개선·안전수당\n신설 논의' },
+      { type:'placeholder', bg:'#091628', icon:'⚓', label:'JPG', title:'합의 사항', desc:'이번 교섭 합의된\n주요 사항 정리' },
+    ]
+  },
+  {
+    id:4, category:'노사안내', date:'2025.06.25', title:'2025년 2분기 노사협의회 결과 안내',
+    icon:'🤝', thumb:null,
+    slides:[
+      { type:'placeholder', bg:'#1a0a28', icon:'🤝', label:'JPG', title:'노사협의회 결과', desc:'2분기 노사협의회\n주요 협의 내용' },
+    ]
+  },
+  {
+    id:5, category:'시황정보', date:'2025.06.20', title:'6월 조선업 시황 브리핑',
+    icon:'📊', thumb:null,
+    slides:[
+      { type:'placeholder', bg:'#0d2a10', icon:'📊', label:'JPG', title:'6월 시황', desc:'LNG선 발주 증가\n해양플랜트 재개 동향' },
+    ]
+  },
+];
+
+/* ─── 카테고리 설정 ─── */
+const CATEGORIES = [
+  { id:'전체',    label:'전체',    icon:'📋' },
+  { id:'교섭소식', label:'교섭 소식', icon:'⚓' },
+  { id:'시황정보', label:'시황 정보', icon:'📊' },
+  { id:'복지안내', label:'복지 안내', icon:'🏖️' },
+  { id:'노사안내', label:'노사 안내', icon:'🤝' },
+];
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+let currentPage   = 'home';
+let currentCat    = '전체';
+let currentSort   = 'newest';
+let currentPostId = null;
+let slideObs      = null;
+
+/* ═══════════════════════════════════════
+   HASH ROUTING
+   메인:     #/
+   카테고리: #/교섭소식
+   상세:     #/교섭소식/0
+   이벤트:   #/event
+═══════════════════════════════════════ */
+function buildHash(page, opts={}) {
+  if(page==='home')    return '#/';
+  if(page==='event')   return '#/event';
+  if(page==='admin')   return '#/admin';
+  if(page==='archive') return '#/' + encodeURIComponent(opts.cat||'전체');
+  if(page==='detail')  {
+    const a = articles.find(x=>x.id===opts.id);
+    const cat = a ? a.category : '전체';
+    return '#/' + encodeURIComponent(cat) + '/' + opts.id;
+  }
+  return '#/';
+}
+
+function parseHash(hash) {
+  const h = (hash||'').replace(/^#\/?/,'');
+  if(!h || h==='/')  return {page:'home'};
+  if(h==='event')    return {page:'event'};
+  if(h==='admin')    return {page:'admin'};
+  const parts = h.split('/');
+  if(parts.length>=2 && !isNaN(parts[1]))
+    return {page:'detail', cat:decodeURIComponent(parts[0]), id:parseInt(parts[1])};
+  return {page:'archive', cat:decodeURIComponent(parts[0]||'전체')};
+}
+
+function nav(page, opts={}) {
+  const hash = buildHash(page, opts);
+  try {
+    if(location.hash !== hash) history.pushState(null,'',hash);
+  } catch(e) { /* iframe 환경에서는 무시 */ }
+  _renderPage(page, opts);
+}
+
+function _renderPage(page, opts={}) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.header-nav-btn').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('page-'+page);
+  if(el) el.classList.add('active');
+  const nb = document.getElementById('nav-'+page);
+  if(nb) nb.classList.add('active');
+  currentPage = page;
+  window.scrollTo(0,0);
+  if(page==='archive') openArchive(opts.cat||currentCat);
+}
+
+window.addEventListener('popstate', ()=>{
+  const {page,cat,id} = parseHash(location.hash);
+  if(page==='detail' && id!=null) {
+    currentPostId = id;
+    const article = articles.find(a=>a.id===id);
+    if(article){ renderViewer(article); _renderPage('detail'); updatePrevNext(); }
+  } else if(page==='archive') {
+    _renderPage('archive',{cat});
+  } else {
+    _renderPage(page);
+  }
+});
+
+/* ═══════════════════════════════════════
+   HOME
+═══════════════════════════════════════ */
+function initHome() {
+  renderFeatured();
+  renderRecent();
+  renderCatBtns();
+}
+
+function renderFeatured() {
+  const a = PINNED_ID!=null
+    ? articles.find(x=>x.id===PINNED_ID)||articles[0]
+    : articles[0];
+
+  const catLabel = CATEGORIES.find(c=>c.id===a.category)?.label || a.category;
+  const thumbHtml = a.thumb
+    ? `<img src="${a.thumb}" alt="${a.title}"/>`
+    : `<div class="featured-thumb-ph"><div>${a.icon}</div><span>썸네일 이미지</span></div>`;
+
+  document.getElementById('featured-wrap').innerHTML = `
+    <div class="featured-card fade-up" onclick="openDetail(${a.id})">
+      <div class="featured-thumb">
+        ${thumbHtml}
+        <span class="featured-pin">📌 고정</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-cat cat-${a.category}">${catLabel}</div>
+        <div class="featured-title">${a.title}</div>
+        <div class="featured-meta">
+          <span>📅 ${a.date}</span>
+          <span>📄 ${a.slides.length}페이지</span>
+        </div>
+        <button class="btn-view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          카드뉴스 보기
+        </button>
+      </div>
+    </div>`;
+}
+
+function renderRecent() {
+  const recent = [...articles].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+  document.getElementById('recent-wrap').innerHTML = recent.map(a=>{
+    const catLabel = CATEGORIES.find(c=>c.id===a.category)?.label||a.category;
+    return `
+      <div class="list-row fade-up" onclick="openDetail(${a.id})">
+        <div class="list-row-icon bg-${a.category}">${a.icon}</div>
+        <div class="list-row-info">
+          <div class="list-row-cat cat-${a.category}">${catLabel}</div>
+          <div class="list-row-title">${a.title}</div>
+          <div class="list-row-date">${a.date} · ${a.slides.length}페이지</div>
+        </div>
+        <span class="list-row-chevron">›</span>
+      </div>`;
+  }).join('');
+}
+
+function renderCatBtns() {
+  document.getElementById('cat-btns').innerHTML = CATEGORIES.filter(c=>c.id!=='전체').map(c=>`
+    <button class="cat-btn-item" onclick="nav('archive',{cat:'${c.id}'})">
+      <span class="cat-btn-icon">${c.icon}</span>
+      <span class="cat-btn-info">
+        <span class="cat-btn-name">${c.label}</span>
+        <span class="cat-btn-count">${articles.filter(a=>a.category===c.id).length}건</span>
+      </span>
+      <span class="cat-btn-arrow">›</span>
+    </button>`).join('');
+}
+
+/* ═══════════════════════════════════════
+   ARCHIVE
+═══════════════════════════════════════ */
+function openArchive(cat) {
+  currentCat  = cat || '전체';
+  currentSort = document.getElementById('sort-select')?.value || 'newest';
+  renderCatTabs();
+  renderGrid();
+  document.getElementById('archive-title').textContent =
+    currentCat==='전체' ? '전체 목록'
+    : (CATEGORIES.find(c=>c.id===currentCat)?.label||currentCat)+' 목록';
+}
+
+function renderCatTabs() {
+  document.getElementById('cat-tabs').innerHTML = CATEGORIES.map(c=>`
+    <button class="cat-tab ${c.id===currentCat?'active':''}"
+      onclick="switchCat('${c.id}')">
+      ${c.icon} ${c.label||c.id}
+    </button>`).join('');
+}
+
+function switchCat(cat) {
+  currentCat = cat;
+  renderCatTabs();
+  renderGrid();
+  document.getElementById('archive-title').textContent =
+    cat==='전체'?'전체 목록':(CATEGORIES.find(c=>c.id===cat)?.label||cat)+' 목록';
+}
+
+function applySort() {
+  currentSort = document.getElementById('sort-select').value;
+  renderGrid();
+}
+
+function renderGrid() {
+  let list = currentCat==='전체' ? [...articles] : articles.filter(a=>a.category===currentCat);
+  list.sort((a,b)=> currentSort==='newest'
+    ? b.date.localeCompare(a.date)
+    : a.date.localeCompare(b.date));
+
+  document.getElementById('toolbar-count').innerHTML =
+    `총 <strong>${list.length}</strong>건`;
+
+  document.getElementById('archive-grid').innerHTML = list.map(a=>{
+    const catLabel = CATEGORIES.find(c=>c.id===a.category)?.label||a.category;
+    const thumbHtml = a.thumb
+      ? `<img src="${a.thumb}" alt="${a.title}"/>`
+      : `<span>${a.icon}</span>`;
+    return `
+      <div class="archive-card" onclick="openDetail(${a.id})">
+        <div class="archive-thumb">${thumbHtml}</div>
+        <div class="archive-body">
+          <div class="archive-cat cat-${a.category}">${catLabel}</div>
+          <div class="archive-title">${a.title}</div>
+          <div class="archive-date">${a.date}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════
+   DETAIL VIEWER
+═══════════════════════════════════════ */
+function openDetail(id) {
+  currentPostId = id;
+  const article = articles.find(a=>a.id===id);
+  if(!article) return;
+  renderViewer(article);
+  nav('detail', {id});
+  updatePrevNext();
+}
+
+function renderViewer(article) {
+  const wrap    = document.getElementById('viewer-wrap');
+  const dotsEl  = document.getElementById('viewer-dots');
+  const hint    = document.getElementById('scroll-hint');
+  const total   = article.slides.length;
+
+  /* 슬라이드 */
+  wrap.innerHTML = article.slides.map((s,i)=>{
+    let inner = '';
+    if(s.type==='image'||s.type==='gif'){
+      inner = `<img src="${s.src}" alt="${i+1}페이지" loading="lazy"/>`;
+    } else if(s.type==='video'){
+      inner = `<video src="${s.src}" autoplay muted loop playsinline></video>`;
+    } else if(s.type==='inline'){
+      inner = `<div style="width:100%;height:100%;">${s.html}</div>`;
+    } else {
+      const desc=(s.desc||'').replace(/\n/g,'<br>');
+      inner = `<div class="media-ph" style="background:${s.bg||'#111'}">
+        <div class="ph-type">${s.label||'JPG'}</div>
+        <div class="ph-icon">${s.icon||article.icon}</div>
+        <div class="ph-title">${s.title||''}</div>
+        <div class="ph-desc">${desc}</div>
+      </div>`;
+    }
+    return `
+      <div class="viewer-slide" data-index="${i}">
+        <div class="media-card">
+          <div class="page-counter">${i+1} / ${total}</div>
+          ${inner}
+        </div>
+      </div>`;
+  }).join('');
+
+  /* 도트 */
+  dotsEl.innerHTML = article.slides.map((_,i)=>
+    `<div class="vdot${i===0?' active':''}" onclick="goSlide(${i})"></div>`
+  ).join('');
+
+  /* IntersectionObserver */
+  if(slideObs) slideObs.disconnect();
+  const slides = wrap.querySelectorAll('.viewer-slide');
+  slideObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const idx = parseInt(e.target.dataset.index);
+      document.querySelectorAll('.vdot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+      hint.style.opacity = idx===total-1?'0':'1';
+    });
+  },{root:wrap, threshold:0.55});
+  slides.forEach(s=>slideObs.observe(s));
+
+  wrap.scrollTo(0,0);
+  hint.style.opacity = total>1?'1':'0';
+}
+
+function goSlide(i) {
+  const wrap = document.getElementById('viewer-wrap');
+  wrap.querySelectorAll('.viewer-slide')[i]?.scrollIntoView({behavior:'smooth'});
+}
+
+/* 이전글/다음글 */
+function updatePrevNext() {
+  const sorted = [...articles].sort((a,b)=>b.date.localeCompare(a.date));
+  const idx = sorted.findIndex(a=>a.id===currentPostId);
+  document.getElementById('btn-prev').disabled = idx<=0;
+  document.getElementById('btn-next').disabled = idx>=sorted.length-1;
+}
+
+function goAdjacentPost(dir) {
+  const sorted = [...articles].sort((a,b)=>b.date.localeCompare(a.date));
+  const idx = sorted.findIndex(a=>a.id===currentPostId);
+  const next = sorted[idx+dir];
+  if(next) openDetail(next.id);
+}
+
+/* ═══════════════════════════════════════
+   EVENT QUIZ
+═══════════════════════════════════════ */
+function selectOpt(el) {
+  el.closest('.quiz-opts').querySelectorAll('.quiz-opt')
+    .forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+
+/* ═══════════════════════════════════════
+   ADMIN
+═══════════════════════════════════════ */
+const ADMIN_PIN = '1234'; // ★ 비밀번호 여기서 변경
+let pinValue = '';
+let adminFiles = [];
+let adminUnlocked = false;
+
+function pinInput(n) {
+  if(pinValue.length >= 4) return;
+  pinValue += n;
+  updatePinDots();
+  if(pinValue.length === 4) {
+    setTimeout(()=>{
+      if(pinValue === ADMIN_PIN) {
+        adminUnlocked = true;
+        document.getElementById('admin-lock').style.display = 'none';
+        document.getElementById('admin-content').style.display = 'block';
+        renderAdminList();
+        // 오늘 날짜 기본값
+        document.getElementById('adm-date').value = new Date().toISOString().split('T')[0];
+      } else {
+        document.getElementById('pin-error').textContent = '비밀번호가 틀렸습니다';
+        pinValue = '';
+        updatePinDots();
+        setTimeout(()=>document.getElementById('pin-error').textContent='', 1500);
+      }
+    }, 150);
+  }
+}
+
+function pinClear() {
+  pinValue = pinValue.slice(0,-1);
+  updatePinDots();
+}
+
+function updatePinDots() {
+  document.querySelectorAll('#pin-dots span').forEach((s,i)=>{
+    s.classList.toggle('filled', i < pinValue.length);
+  });
+}
+
+function adminLogout() {
+  adminUnlocked = false;
+  pinValue = '';
+  updatePinDots();
+  document.getElementById('admin-lock').style.display = 'flex';
+  document.getElementById('admin-content').style.display = 'none';
+  nav('home');
+}
+
+function handleFiles(files) {
+  Array.from(files).forEach(f => adminFiles.push(f));
+  renderPreviews();
+}
+
+function renderPreviews() {
+  const wrap = document.getElementById('adm-preview-list');
+  wrap.innerHTML = '';
+  adminFiles.forEach((f,i)=>{
+    const item = document.createElement('div');
+    item.className = 'preview-item';
+    const isVideo = f.type.startsWith('video');
+    const url = URL.createObjectURL(f);
+    item.innerHTML = `
+      ${isVideo
+        ? `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:24px;">🎬</div>`
+        : `<img src="${url}"/>`}
+      <span class="preview-num">${i+1}</span>
+      <span class="preview-name">${f.name}</span>
+      <button class="preview-remove" onclick="removeFile(${i})">✕</button>`;
+    wrap.appendChild(item);
+  });
+}
+
+function removeFile(i) {
+  adminFiles.splice(i,1);
+  renderPreviews();
+}
+
+function generateCode() {
+  const title = document.getElementById('adm-title').value.trim();
+  const cat   = document.getElementById('adm-cat').value;
+  const dateRaw = document.getElementById('adm-date').value;
+  if(!title){ alert('제목을 입력해주세요'); return; }
+  if(!dateRaw){ alert('날짜를 입력해주세요'); return; }
+  if(adminFiles.length===0){ alert('이미지를 1장 이상 첨부해주세요'); return; }
+
+  const date = dateRaw.replace(/-/g,'.');
+  const newId = Math.max(...articles.map(a=>a.id), -1) + 1;
+  const catIcons = {교섭소식:'⚓',시황정보:'📊',복지안내:'🏖️',노사안내:'🤝'};
+  const icon = catIcons[cat] || '📄';
+
+  const slidesCode = adminFiles.map(f=>{
+    const ext = f.name.split('.').pop().toLowerCase();
+    const type = ['mp4','mov','webm'].includes(ext) ? 'video'
+               : ext==='gif' ? 'gif' : 'image';
+    return `      { type:'${type}', src:'slides/${f.name}' }`;
+  }).join(',
+');
+
+  const code = `  {
+    id:${newId}, category:'${cat}', date:'${date}', title:'${title}',
+    icon:'${icon}', thumb:'slides/${adminFiles[0].name}',
+    slides:[
+${slidesCode},
+    ]
+  },`;
+
+  document.getElementById('adm-code-output').textContent = code;
+  document.getElementById('adm-filelist-output').innerHTML =
+    '<strong>📁 GitHub slides/ 폴더에 업로드할 파일:</strong><br>' +
+    adminFiles.map((f,i)=>`${i+1}. ${f.name}`).join('<br>');
+  document.getElementById('adm-result-card').style.display = 'block';
+  document.getElementById('adm-result-card').scrollIntoView({behavior:'smooth'});
+}
+
+function copyCode() {
+  const code = document.getElementById('adm-code-output').textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    const btn = document.querySelector('.adm-copy-btn');
+    btn.textContent = '✅ 복사됨!';
+    setTimeout(()=>btn.textContent='📋 복사', 2000);
+  });
+}
+
+function renderAdminList() {
+  const sorted = [...articles].sort((a,b)=>b.date.localeCompare(a.date));
+  document.getElementById('adm-total').textContent = sorted.length;
+  document.getElementById('adm-article-list').innerHTML = sorted.map(a=>{
+    const catLabel = CATEGORIES.find(c=>c.id===a.category)?.label || a.category;
+    return `
+    <div class="adm-list-item">
+      <div class="adm-list-icon">${a.icon}</div>
+      <div class="adm-list-info">
+        <div class="adm-list-cat">${catLabel}</div>
+        <div class="adm-list-title">${a.title}</div>
+        <div class="adm-list-date">${a.date} · ${a.slides.length}페이지</div>
+      </div>
+      <span class="adm-list-id">id:${a.id}</span>
+    </div>`;
+  }).join('');
+}
+
+// admin 해시 라우팅 추가
+const _origBuildHash = buildHash;
+
+
+/* ═══════════════════════════════════════
+   INIT — hash 기반 초기 진입
+═══════════════════════════════════════ */
+function boot() {
+  initHome(); // 항상 home 데이터는 준비
+  const {page, cat, id} = parseHash(location.hash);
+  if(page==='detail' && id!=null) {
+    currentPostId = id;
+    const article = articles.find(a=>a.id===id);
+    if(article){ renderViewer(article); _renderPage('detail'); updatePrevNext(); return; }
+  }
+  if(page==='archive') { _renderPage('archive',{cat}); return; }
+  if(page==='event')   { _renderPage('event'); return; }
+  if(page==='admin')   { _renderPage('admin'); return; }
+  _renderPage('home');
+  if(!location.hash || location.hash==='') { try{ history.replaceState(null,'','#/'); }catch(e){} }
+}
+boot();
+</script>
+</body>
+</html>
