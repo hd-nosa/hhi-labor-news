@@ -473,7 +473,14 @@ const ADMIN_PIN = '1234';
      video  → src:'slides/파일명.mp4'
      placeholder → MVP 예시용
 ════════════════════════════════════════ */
-const articles = [
+const articles = [  {
+    id:6, category:'시황정보', date:'2026.04.20', title:'exex',
+    icon:'📊', thumb:'slides/노사공동협의체 5차 회의.jpg',
+    slides:[
+      { type:'image', src:'slides/노사공동협의체 5차 회의.jpg' },
+      { type:'image', src:'slides/노사공동협의체 6차 회의.jpg' },
+    ]
+  },
   {
     id:0, category:'교섭소식', date:'2025.07.14',
     title:'제7차 본교섭 결과 — 임금 조정안 제시, 합의 접근 중',
